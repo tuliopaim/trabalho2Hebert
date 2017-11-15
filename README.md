@@ -1,4 +1,8 @@
-# trabalho2Hebert
+# TRABALHO 2
+Túlio Paim
+Matheus
+Bruno Souza
+
    O objetivo desse trabalho é rever conceitos básicos de programação bem como ex-
 plorar os conceitos de Tipos Abstratos de Dados (TADs) e análise de complexidade.
 Você deverá programar um tipo abstrato de dados T3D, que será usado para realizar
