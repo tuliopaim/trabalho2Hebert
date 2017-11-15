@@ -1,5 +1,5 @@
 # trabalho2Hebert
-    O objetivo desse trabalho é rever conceitos básicos de programação bem como ex-
+   O objetivo desse trabalho é rever conceitos básicos de programação bem como ex-
 plorar os conceitos de Tipos Abstratos de Dados (TADs) e análise de complexidade.
 Você deverá programar um tipo abstrato de dados T3D, que será usado para realizar
 transformações geométricas e projeções a partir de objetos tridimensionais. A base
@@ -18,7 +18,7 @@ que serão implementadas no TAD são as seguintes:
 
 (c) Rotação (em torno dos eixos x, y e z, a partir da origem do sistema de coordenadas)
 
-    A composição de operações é feita por pré-multiplicação, da seguinte forma. A matriz
+   A composição de operações é feita por pré-multiplicação, da seguinte forma. A matriz
 da primeira transformação a ser realizada é o ponto de partida. A matriz da segunda
 transformação deve ser multiplicada pela da primeira transformação, formando uma nova
 matriz. A matriz da terceira transformação deve ser multiplicada pela matriz resultante
@@ -39,36 +39,36 @@ As operações que devem ser realizadas em seu TAD T3D são:
 O espaço de memória necessário para o vetor deverá ser alocado dinamicamente por
 esta função.
 
-void Cria(Mat4x1 *Obj, char* fName);
+        void Cria(Mat4x1 *Obj, char* fName);
 
 
 2. Preenche uma matriz 4x4 com os parâmetros de translação:
 
-Mat4x4 Trans(Mat4x4 M, double deltaX, double deltaY, double deltaZ);
+        Mat4x4 Trans(Mat4x4 M, double deltaX, double deltaY, double deltaZ);
 
 
 3. Preenche uma matriz 4x4 com os parâmetros de mudança de escala:
 
-Mat4x4 Escala(Mat4x4 M, double FX, double FY, double FZ);
+        Mat4x4 Escala(Mat4x4 M, double FX, double FY, double FZ);
 
 
 4. Preenche uma matriz 4x4 com os parâmetros de rotação:
 
-Mat4x4 Rot(Mat4x4 M, int eixo, double angulo);
+        Mat4x4 Rot(Mat4x4 M, int eixo, double angulo);
 
 
 5. Multiplica duas matrizes 4x4, para composição de transformações:
 
-Mat4x4 MatComp(Mat4x4 M1, Mat4x4 M2);
+        Mat4x4 MatComp(Mat4x4 M1, Mat4x4 M2);
 
 6. Multiplica uma matriz 4x4 por um vetor de coordenad as, efetuando a transformação:
 
-Mat4x1 MatTransf(Mat4x4 M, Mat4x1 P);
+        Mat4x1 MatTransf(Mat4x4 M, Mat4x1 P);
 
 
 7. Imprime as coordenadas de um objeto no arquivo de nome FName.
 
-void Imprime(Mat4x1 *Obj, char* fName);
+        void Imprime(Mat4x1 *Obj, char* fName);
 
 
     Programe o seu TAD em arquivos separados do program a principal (TD3D.c e T3D.h).
