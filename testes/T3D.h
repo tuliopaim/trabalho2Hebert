@@ -1,5 +1,6 @@
 #ifndef T3D
 #define T3D
+#define PI 3.14159265
 
 /*
 TIPOS DE DADOS
