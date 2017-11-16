@@ -5,6 +5,7 @@ As funções implementadas por Matheus fecham o arquivo depois que elas acabam
 */
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include "T3D.h"
 
 
@@ -66,7 +67,41 @@ Mat4x4 Escala(Mat4x4 M, double FX, double FY, double FZ){
 }
 
 Mat4x4 Rot(Mat4x4 M, int eixo, double angulo){
-
+	int i, j;
+	if(eixo == 'X'){
+		for(i=0;i<4;i++){
+			for(j=0;j<4;j++){
+				if((i==0 && j==0) || (i==3 && j==3)) M.matriz[i][j] = 1;
+				else if((i==1 && j==1) || (i==2 && j==2)) M.matriz[i][j] = cos(angulo);
+				else if(i==1 && j==2) M.matriz[i][j] = -1 * sin(angulo);
+				else if(i==2 && j==1) M.matriz[i][j] = sin(angulo);
+				else M.matriz[i][j] = 0;
+			}
+		}
+	}
+	else if(eixo == 'Y'){
+		for(i=0;i<4;i++){
+			for(j=0;j<4;j++){
+				if((i==1 && j==1) || (i==3 && j==3)) M.matriz[i][j] = 1;
+				else if((i==0 && j==0) || (i==2 && j==2)) M.matriz[i][j] = cos(angulo);
+				else if(i==0 && j==2) M.matriz[i][j] = -1 * sin(angulo);
+				else if(i==2 && j==0) M.matriz[i][j] = sin(angulo);
+				else M.matriz[i][j] = 0;
+			}
+		}
+	}
+	else if(eixo == 'Z'){
+		for(i=0;i<4;i++){
+			for(j=0;j<4;j++){
+				if((i==2 && j==2) || (i==3 && j==3)) M.matriz[i][j] = 2;
+				else if((i==0 && j==0) || (i==1 && j==1)) M.matriz[i][j] = cos(angulo);
+				else if(i==0 && j==1) M.matriz[i][j] = -1 * sin(angulo);
+				else if(i==1 && j==0) M.matriz[i][j] = sin(angulo);
+				else M.matriz[i][j] = 0;
+			}
+		}
+	}
+	return M;
 }
 
 Mat4x4 MatComp(Mat4x4 M1, Mat4x4 M2){
