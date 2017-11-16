@@ -21,7 +21,7 @@ void Cria(Mat4x1 *Obj, char* fName){
 		return ;
 	}
 	//lendo e preenchendo a matriz 4x1
-	fscanf(arq,"%lf %lf %lf",&Obj->vetor[0],&Obj->vetor[1],&Obj->vetor[2]);
+	fscanf(arq,"%lf %lf %lf",&Obj->matriz[0][0],&Obj->matriz[1][0],&Obj->matriz[2][0]);
 	fclose(arq);
 }
 
@@ -121,11 +121,11 @@ Mat4x1 MatTransf(Mat4x4 M, Mat4x1 P){
 	double temp;
 	Mat4x1 v;
 	for(i=0;i<4;i++){
-		v.vetor[i] = 0;
+		v.matriz[i][0] = 0;
 		for(j=0;j<4;j++){
-			v.vetor[i] += P.vetor[j] * M.matriz[j][i];
+			v.matriz[i][0] += P.matriz[j][0] * M.matriz[j][i];
 			#ifdef DEBUG
-			printf("%.2lf * %.2lf = %.2lf\n", P.vetor[j], M.matriz[j][i], v.vetor[i]);
+			printf("%.2lf * %.2lf = %.2lf\n", P.matriz[j][0], M.matriz[j][i], v.matriz[i][0]);
 			#endif
 		}
 	}
@@ -140,7 +140,7 @@ void ImprimeNoArquivo(Mat4x1 *Obj, char* fName){
 		printf("Erro ao abrir o arquivo\n");
 	}
 	//coloca as coordenadas x, y e z no arquivo "Arq"
-	fprintf(arq, "%lf %lf %lf\n",Obj->vetor[0],Obj->vetor[1],Obj->vetor[2]);
+	fprintf(arq, "%lf %lf %lf\n",Obj->matriz[0][0],Obj->matriz[1][0],Obj->matriz[2][0]);
 	fclose(arq);
 }
 
@@ -153,7 +153,7 @@ Mat4x1 * AlocaMat4x1(){
 		printf("Erro ao alocar uma nova matriz 4x1\n");
 		return NULL;
 	}
-	new->vetor[3] = 1;
+	new->matriz[3][0] = 1;
 	return new;
 }
 
@@ -170,9 +170,8 @@ Mat4x4 * AlocaMat4x4(){
 }
 
 void imprimeMat4x1(Mat4x1 * elemento){
-	printf("Coordenadas (x,y,z,t) : (%.2lf,%.2lf,%.2lf,%.2lf)\n",elemento->vetor[0],elemento->vetor[1],elemento->vetor[2], elemento->vetor[3]);
+	printf("Coordenadas (x,y,z,t) : (%.2lf,%.2lf,%.2lf,%.2lf)\n",elemento->matriz[0][0],elemento->matriz[0][1],elemento->matriz[0][2], elemento->matriz[0][3]);
 }
-
 
 void imprimeMat4x4(Mat4x4 * M){
 	int i, j;
