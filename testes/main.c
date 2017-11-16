@@ -4,12 +4,6 @@
 
 #define DEBUG
 
-void test(int inteiro){
-	if(inteiro == 'c') printf("deu!\n");
-	else printf("Não deu n\n");
-}
-
-
 int main (){
 	FILE * arq;
 	Mat4x1 * teste;
@@ -37,7 +31,7 @@ int main (){
 	Mat4x4 mat;
 	Mat4x1 vet;
 
-	for (int i = 0; i < 4; ++i) vet.vetor[i] = 1;
+	for (int i = 0; i < 4; ++i) vet.matriz[i][0] = 1;
 
 	for (int i = 0; i < 4; ++i){
 		for(int j=0;j<4;j++){
