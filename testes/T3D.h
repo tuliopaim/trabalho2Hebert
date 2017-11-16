@@ -6,7 +6,7 @@
 TIPOS DE DADOS
 */
 struct mat4x1{
-	double x,y,z,t;
+	double vetor[4];
 };
 
 struct mat4x4{
