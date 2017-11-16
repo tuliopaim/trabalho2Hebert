@@ -7,16 +7,6 @@ As funções implementadas por Matheus fecham o arquivo depois que elas acabam
 #include <stdlib.h>
 #include "T3D.h"
 
-/*
-TIPOS DE DADOS
-*/
-struct mat4x1{
-	double x,y,z;
-};
-
-struct mat4x4{
-	double matrix[4][4];
-};
 
 
 /*
@@ -37,10 +27,41 @@ void Cria(Mat4x1 *Obj, char* fName){
 }
 
 Mat4x4 Trans(Mat4x4 M, double deltaX, double deltaY, double deltaZ){
+	int i, j;
+	
+	//CRIA MATRIZ TRANS A SER MULTIPLICADA PELA COORDENADA
+	for(i=0;i<4;i++){
+		for(j=0;j<4;j++){
+			if(i==j) M.matriz[i][j] = 1;
+			else if(i==0 && j==3) M.matriz[i][j] = deltaX;
+			else if(i==1 && j==3) M.matriz[i][j] = deltaY;
+			else if(i==2 && j==3) M.matriz[i][j] = deltaZ;
+			else M.matriz[i][j] = 0;
+		}
+	}
+
+	//mat4x4 * result = multiplicaMatriz(T);
+
+	return M;
 
 }
 
 Mat4x4 Escala(Mat4x4 M, double FX, double FY, double FZ){
+	int i, j;
+	//CRIA MATRIZ ESCALA A SER MULTIPLICADA PELA COORDENADA
+	for(i=0;i<4;i++){
+		for(j=0;j<4;j++){
+			if(i==0 && j==0) M.matriz[i][j] = FX;
+			else if(i==1 && j==1) M.matriz[i][j] = FY;
+			else if(i==2 && j==2) M.matriz[i][j] = FZ;
+			else if(i==3 && j==3) M.matriz[i][j] = 1;
+			else M.matriz[i][j] = 0;
+		}
+	}
+
+	//mat4x4 * result = multiplicaMatriz(T);
+
+	return M;
 
 }
 
@@ -56,7 +77,7 @@ Mat4x1 MatTransf(Mat4x4 M, Mat4x1 P){
 
 }
 
-void Imprime(Mat4x1 *Obj, char* fName){
+void ImprimeNoArquivo(Mat4x1 *Obj, char* fName){
 	FILE * arq;
 	//abrindo o arquivo
 	arq = fopen(fName,"a+");
@@ -77,9 +98,33 @@ Mat4x1 * AlocaMat4x1(){
 		printf("Erro ao alocar uma nova matriz 4x1\n");
 		return NULL;
 	}
+	new->t = 1;
+	return new;
+}
+
+Mat4x4 * AlocaMat4x4(){
+	Mat4x4 * new;
+	//alocando
+	new = malloc(sizeof(Mat4x4));
+	//conferindo se não foi alocado
+	if (new == NULL){
+		printf("Erro ao alocar uma nova matriz 4x4\n");
+		return NULL;
+	}
 	return new;
 }
 
 void imprimeMat4x1(Mat4x1 * elemento){
-	printf("Coordenadas (x,y,z) : (%.2lf,%.2lf,%.2lf)\n",elemento->x,elemento->y,elemento->z);
+	printf("Coordenadas (x,y,z,t) : (%.2lf,%.2lf,%.2lf, %.2lf)\n",elemento->x,elemento->y,elemento->z, elemento->t);
+}
+
+
+void imprimeMat4x4(Mat4x4 * M){
+	int i, j;
+	printf("\tMATRIZ\n");
+	for(i=0;i<4;i++){
+		for(j=0;j<4;j++){
+			printf((j==3) ? "%lf\n" : "%lf ", M->matriz[i][j]);
+		}
+	}
 }
