@@ -17,7 +17,41 @@ int main (){
 	arq = fopen("entradas.txt","r");
 	Cria(teste,"entradas.txt");
 
-	//ESCALONAMENTO
+	imprimeMat4x1(teste);
+
+	//TESTE MatComp
+	Mat4x4 m1;
+	Mat4x4 m2;
+
+	for (int i = 0; i < 4; ++i){
+		for(int j=0;j<4;j++){
+			m1.matriz[i][j] = 1;
+			m2.matriz[i][j] = 1;
+		}
+	}
+
+	m2 = MatComp(m1, m2);
+	imprimeMat4x4(&m2);
+
+	//TESTE MatTransf
+	Mat4x4 mat;
+	Mat4x1 vet;
+
+	for (int i = 0; i < 4; ++i) vet.vetor[i] = 1;
+
+	for (int i = 0; i < 4; ++i){
+		for(int j=0;j<4;j++){
+			mat.matriz[i][j] = 1;
+		}
+	}
+
+	vet = MatTransf(mat, vet);
+
+	imprimeMat4x1(&vet);
+
+
+
+	//TESTE ESCALONAMENTO
 	double deltaX,deltaY,deltaZ;
 	printf("Coordenadas de escalonamento:");
 	scanf("%lf %lf %lf", &deltaX, &deltaY, &deltaZ);
@@ -26,7 +60,7 @@ int main (){
 
 	imprimeMat4x4(&M);
 
-	//TRANSLAÇÃO
+	//TESTE TRANSLAÇÃO
 	double FX, FY, FZ;
 	printf("Coordenadas de escala:");
 	scanf("%lf %lf %lf", &FX, &FY, &FZ);
@@ -36,7 +70,7 @@ int main (){
 	imprimeMat4x4(&S);
 
 
-	//ROTAÇÃO
+	//TESTE ROTAÇÃO
 	char type;
 	double ang, val = PI / 180;
 	scanf(" %c %lf", &type, &ang);
@@ -46,6 +80,5 @@ int main (){
 	imprimeMat4x4(&R);
 	
 
-	imprimeMat4x1(teste);
 	return 0;
 }
