@@ -8,8 +8,6 @@ As funções implementadas por Matheus fecham o arquivo depois que elas acabam
 #include <math.h>
 #include "T3D.h"
 
-
-
 /*
 IMPLEMENTAÇÃO DAS FUNÇÕES
 */
@@ -23,7 +21,7 @@ void Cria(Mat4x1 *Obj, char* fName){
 		return ;
 	}
 	//lendo e preenchendo a matriz 4x1
-	fscanf(arq,"%lf %lf %lf",&Obj->x,&Obj->y,&Obj->z);
+	fscanf(arq,"%lf %lf %lf",&Obj->vetor[0],&Obj->vetor[1],&Obj->vetor[2]);
 	fclose(arq);
 }
 
@@ -68,7 +66,7 @@ Mat4x4 Escala(Mat4x4 M, double FX, double FY, double FZ){
 
 Mat4x4 Rot(Mat4x4 M, int eixo, double angulo){
 	int i, j;
-	if(eixo == 'X'){
+	if(eixo == 'X' || eixo == 'x'){
 		for(i=0;i<4;i++){
 			for(j=0;j<4;j++){
 				if((i==0 && j==0) || (i==3 && j==3)) M.matriz[i][j] = 1;
@@ -79,7 +77,7 @@ Mat4x4 Rot(Mat4x4 M, int eixo, double angulo){
 			}
 		}
 	}
-	else if(eixo == 'Y'){
+	else if(eixo == 'Y' || eixo == 'y'){
 		for(i=0;i<4;i++){
 			for(j=0;j<4;j++){
 				if((i==1 && j==1) || (i==3 && j==3)) M.matriz[i][j] = 1;
@@ -90,7 +88,7 @@ Mat4x4 Rot(Mat4x4 M, int eixo, double angulo){
 			}
 		}
 	}
-	else if(eixo == 'Z'){
+	else if(eixo == 'Z' || eixo == 'z'){
 		for(i=0;i<4;i++){
 			for(j=0;j<4;j++){
 				if((i==2 && j==2) || (i==3 && j==3)) M.matriz[i][j] = 2;
@@ -105,11 +103,33 @@ Mat4x4 Rot(Mat4x4 M, int eixo, double angulo){
 }
 
 Mat4x4 MatComp(Mat4x4 M1, Mat4x4 M2){
-
+	int x, i, j;
+	Mat4x4 F;
+	for(x=0;x<4;x++){
+		for(i=0;i<4;i++){
+			F.matriz[x][i] = 0;
+			for(j=0;j<4;j++){
+				F.matriz[x][i] += M1.matriz[x][j] * M2.matriz[j][i];
+			}
+		}
+	}
+	return F;
 }
 
 Mat4x1 MatTransf(Mat4x4 M, Mat4x1 P){
-
+	int i, j;
+	double temp;
+	Mat4x1 v;
+	for(i=0;i<4;i++){
+		v.vetor[i] = 0;
+		for(j=0;j<4;j++){
+			v.vetor[i] += P.vetor[j] * M.matriz[j][i];
+			#ifdef DEBUG
+			printf("%.2lf * %.2lf = %.2lf\n", P.vetor[j], M.matriz[j][i], v.vetor[i]);
+			#endif
+		}
+	}
+	return v;
 }
 
 void ImprimeNoArquivo(Mat4x1 *Obj, char* fName){
@@ -120,7 +140,7 @@ void ImprimeNoArquivo(Mat4x1 *Obj, char* fName){
 		printf("Erro ao abrir o arquivo\n");
 	}
 	//coloca as coordenadas x, y e z no arquivo "Arq"
-	fprintf(arq, "%lf %lf %lf\n",Obj->x,Obj->y,Obj->z);
+	fprintf(arq, "%lf %lf %lf\n",Obj->vetor[0],Obj->vetor[1],Obj->vetor[2]);
 	fclose(arq);
 }
 
@@ -133,7 +153,7 @@ Mat4x1 * AlocaMat4x1(){
 		printf("Erro ao alocar uma nova matriz 4x1\n");
 		return NULL;
 	}
-	new->t = 1;
+	new->vetor[3] = 1;
 	return new;
 }
 
@@ -150,7 +170,7 @@ Mat4x4 * AlocaMat4x4(){
 }
 
 void imprimeMat4x1(Mat4x1 * elemento){
-	printf("Coordenadas (x,y,z,t) : (%.2lf,%.2lf,%.2lf, %.2lf)\n",elemento->x,elemento->y,elemento->z, elemento->t);
+	printf("Coordenadas (x,y,z,t) : (%.2lf,%.2lf,%.2lf,%.2lf)\n",elemento->vetor[0],elemento->vetor[1],elemento->vetor[2], elemento->vetor[3]);
 }
 
 
