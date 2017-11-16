@@ -4,6 +4,12 @@
 
 #define DEBUG
 
+void test(int inteiro){
+	if(inteiro == 'c') printf("deu!\n");
+	else printf("Não deu n\n");
+}
+
+
 int main (){
 	FILE * arq;
 	Mat4x1 * teste;
@@ -16,8 +22,7 @@ int main (){
 	printf("Coordenadas de escalonamento:");
 	scanf("%lf %lf %lf", &deltaX, &deltaY, &deltaZ);
 
-	Mat4x4 M;// AlocaMat4x4();
-	M = Trans(M, deltaX, deltaY, deltaZ);
+	Mat4x4 M = Trans(M, deltaX, deltaY, deltaZ);
 
 	imprimeMat4x4(&M);
 
@@ -26,10 +31,20 @@ int main (){
 	printf("Coordenadas de escala:");
 	scanf("%lf %lf %lf", &FX, &FY, &FZ);
 
-	Mat4x4 S; //= AlocaMat4x4();
-	S = Escala(S, FX, FY, FZ);
+	Mat4x4 S = Escala(S, FX, FY, FZ);
 
 	imprimeMat4x4(&S);
+
+
+	//ROTAÇÃO
+	char type;
+	double ang, val = PI / 180;
+	scanf(" %c %lf", &type, &ang);
+
+	Mat4x4 R = Rot(R, type, val*ang);
+
+	imprimeMat4x4(&R);
+	
 
 	imprimeMat4x1(teste);
 	return 0;
