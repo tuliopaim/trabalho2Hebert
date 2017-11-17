@@ -35,7 +35,7 @@ Mat4x4 Escala(Mat4x4 M, double FX, double FY, double FZ);
 
 /**Preenche uma matriz 4x4 com os parˆametros de rota¸c˜ao
 */
-Mat4x4 Rot(Mat4x4 M, int eixo, double angulo);
+Mat4x4 Rot(Mat4x4 M, int eixo, double ang);
 
 /**Multiplica duas matrizes 4x4, para composiçao de transformações
 */
