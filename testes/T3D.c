@@ -91,7 +91,7 @@ Mat4x4 Rot(Mat4x4 M, int eixo, double angulo){
 	else if(eixo == 'Z' || eixo == 'z'){
 		for(i=0;i<4;i++){
 			for(j=0;j<4;j++){
-				if((i==2 && j==2) || (i==3 && j==3)) M.matriz[i][j] = 2;
+				if((i==2 && j==2) || (i==3 && j==3)) M.matriz[i][j] = 1;
 				else if((i==0 && j==0) || (i==1 && j==1)) M.matriz[i][j] = cos(angulo);
 				else if(i==0 && j==1) M.matriz[i][j] = -1 * sin(angulo);
 				else if(i==1 && j==0) M.matriz[i][j] = sin(angulo);
@@ -123,9 +123,9 @@ Mat4x1 MatTransf(Mat4x4 M, Mat4x1 P){
 	for(i=0;i<4;i++){
 		v.matriz[i][0] = 0;
 		for(j=0;j<4;j++){
-			v.matriz[i][0] += P.matriz[j][0] * M.matriz[j][i];
+			v.matriz[i][0] += P.matriz[j][0] * M.matriz[i][j];
 			#ifdef DEBUG
-			printf("%.2lf * %.2lf = %.2lf\n", P.matriz[j][0], M.matriz[j][i], v.matriz[i][0]);
+			printf("%.2lf * %.2lf = %.2lf\n", P.matriz[j][0], M.matriz[i][j], v.matriz[i][0]);
 			#endif
 		}
 	}
@@ -178,7 +178,7 @@ void imprimeMat4x4(Mat4x4 * M){
 	printf("\tMATRIZ\n");
 	for(i=0;i<4;i++){
 		for(j=0;j<4;j++){
-			printf((j==3) ? "%lf\n" : "%lf ", M->matriz[i][j]);
+			printf((j==3) ? "%.2lf\n" : "%.2lf ", M->matriz[i][j]);
 		}
 	}
 }
