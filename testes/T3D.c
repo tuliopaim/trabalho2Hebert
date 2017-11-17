@@ -64,8 +64,9 @@ Mat4x4 Escala(Mat4x4 M, double FX, double FY, double FZ){
 
 }
 
-Mat4x4 Rot(Mat4x4 M, int eixo, double angulo){
+Mat4x4 Rot(Mat4x4 M, int eixo, double ang){
 	int i, j;
+	double angulo = (PI*ang)/180;
 	if(eixo == 'X' || eixo == 'x'){
 		for(i=0;i<4;i++){
 			for(j=0;j<4;j++){
@@ -178,7 +179,7 @@ void imprimeMat4x4(Mat4x4 * M){
 	printf("\tMATRIZ\n");
 	for(i=0;i<4;i++){
 		for(j=0;j<4;j++){
-			printf((j==3) ? "%.2lf\n" : "%.2lf ", M->matriz[i][j]);
+			printf((j==3) ? "%lf\n" : "%lf ", M->matriz[i][j]);
 		}
 	}
 }
