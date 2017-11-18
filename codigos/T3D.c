@@ -266,6 +266,17 @@ void perMult(Mat4x1 * cord, Mat4x4 transforma){
 	}
 }
 
+void lista_libera(Mat4x1 * lista){
+	Mat4x1 * atual = lista;
+	Mat4x1 * prox = atual;
+	while(atual!=NULL){
+		prox = atual ->prox;
+		free(atual);
+		atual = prox;
+	}
+
+}
+
 void MakeItHappen(char * in, char * out){
 	int i, j,n;
 
@@ -290,4 +301,7 @@ void MakeItHappen(char * in, char * out){
 
 	//BURN
 	Imprime(cord, out);
+
+	//Clear the mess, go home
+	lista_libera(cord);
 }

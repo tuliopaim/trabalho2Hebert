@@ -78,4 +78,7 @@ Mat4x4 pegaMatrizes(char * fName);
 //PERCORRE E MULTIPLICA
 void perMult(Mat4x1 * cord, Mat4x4 transforma);
 
+//limpa a memoria da lista
+void lista_libera(Mat4x1 * lista);
+
 #endif
