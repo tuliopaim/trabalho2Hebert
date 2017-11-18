@@ -6,6 +6,15 @@
 typedef struct mat4x1 Mat4x1;
 typedef struct mat4x4 Mat4x4;
 
+void Cria(Mat4x1 *Obj, char * fName);
+
+
+Mat4x1 * lista_inicia();
+
+
+void lista_insere(Mat4x1 * COORD, double x, double y, double z);
+
+double * ler(FILE * p, double * vetor);
 
 /**Cria o objeto a transformar: lê o arquivo de entrada e preenche o vetor de coordenadas.
 **/
@@ -24,7 +33,7 @@ Mat4x4 Escala(Mat4x4 M, double FX, double FY, double FZ);
 
 /**Preenche uma matriz 4x4 com os parˆametros de rota¸c˜ao
 */
-Mat4x4 Rot(Mat4x4 M, int eixo, double angulo);
+Mat4x4 Rot(Mat4x4 M, int eixo, double ang);
 
 /**Multiplica duas matrizes 4x4, para composiçao de transformações
 */
@@ -62,5 +71,15 @@ void imprimeMat4x4(Mat4x4 * M);
 */
 
 //mat4x4 * multiplicaMatriz(mat4x4 * result, mat4x4 * quatro, mat4x4 * um);
+
+
+//A MAGIA ACONTECE
+void MakeItHappen(char * in, char * outs);
+
+//MULTIPLICA AS MATRIZES DE TRANSFORMAÇÃO
+Mat4x4 pegaMatrizes(char * fName);
+
+//PERCORRE E MULTIPLICA
+void perMult(Mat4x1 * cord, Mat4x4 transforma);
 
 #endif
