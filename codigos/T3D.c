@@ -15,6 +15,7 @@ struct mat4x4{
 	double matriz[4][4];
 };
 
+
 Mat4x4 Trans(Mat4x4 M, double deltaX, double deltaY, double deltaZ){
 	int i, j;
 
