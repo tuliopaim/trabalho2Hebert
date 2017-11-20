@@ -1,8 +1,4 @@
-/*
-----------------------------------------------------------------------------
-As funções implementadas por Matheus fecham o arquivo depois que elas acabam
-----------------------------------------------------------------------------
-*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
