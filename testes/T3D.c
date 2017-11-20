@@ -143,7 +143,7 @@ void Imprime(Mat4x1 *Obj, char* fName){
 	temp = Obj->next;
 	//imprimindo no arquivo fName as coordenadas
 	while(temp != NULL){
-		fprintf(arq, "%.2lf %.2lf %.2lf\n",temp->matriz[0][0],temp->matriz[1][0],temp->matriz[2][0]);
+		fprintf(arq, "%.3lf %.3lf %.3lf\n",temp->matriz[0][0],temp->matriz[1][0],temp->matriz[2][0]);
 		temp = temp->next;
 	}
 }
