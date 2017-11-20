@@ -67,7 +67,6 @@ void imprimeMat4x1(Mat4x1 * elemento);
 */
 void imprimeMat4x4(Mat4x4 * M);
 
-//~~ MAKES SHIT HAPPENS
 // A MAGIA ACONTECE
 //Rebe a string nome do arquivo de entrada dos dados
 void MakeItHappen(char * in, char * out);
