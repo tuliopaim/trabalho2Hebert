@@ -13,16 +13,18 @@ IMPLEMENTAÇÃO DAS FUNÇÕES
 */
 
 void Cria(Mat4x1 *Obj, char* fName){
+	int i,qtdPontos;
+	double valores[3];
 	FILE * arq;
-	//abrindo arquivo "arq"
+	//abre o arquivo para a leitura das coordenadas
 	arq = fopen(fName,"r");
-	if (arq == NULL){
-		printf("Erro ao abrir o aquivo para a leitura dos dados\n");
-		return ;
+	//lê a quantidade de pontos a serem atribuidos
+	fscanf(arq,"%d",&qtdPontos);
+	//atribui os valores aos pontos
+	for(i = 0; i < qtdPontos;i++){
+		fscanf(arq,"%lf %lf %lf",&valores[0],&valores[1],&valores[2]);
+		addNode(Obj,valores);
 	}
-	//lendo e preenchendo a matriz 4x1
-	fscanf(arq,"%lf %lf %lf",&Obj->matriz[0][0],&Obj->matriz[1][0],&Obj->matriz[2][0]);
-	fclose(arq);
 }
 
 Mat4x4 Trans(Mat4x4 M, double deltaX, double deltaY, double deltaZ){
@@ -133,16 +135,17 @@ Mat4x1 MatTransf(Mat4x4 M, Mat4x1 P){
 	return v;
 }
 
-void ImprimeNoArquivo(Mat4x1 *Obj, char* fName){
+void Imprime(Mat4x1 *Obj, char* fName){
 	FILE * arq;
-	//abrindo o arquivo
-	arq = fopen(fName,"a+");
-	if(arq == NULL){
-		printf("Erro ao abrir o arquivo\n");
+	Mat4x1 * temp;
+	//abre o arquivo fName para a impressão das coordenadas
+	arq = fopen(fName,"w");
+	temp = Obj->next;
+	//imprimindo no arquivo fName as coordenadas
+	while(temp != NULL){
+		fprintf(arq, "%.2lf %.2lf %.2lf\n",temp->matriz[0][0],temp->matriz[1][0],temp->matriz[2][0]);
+		temp = temp->next;
 	}
-	//coloca as coordenadas x, y e z no arquivo "Arq"
-	fprintf(arq, "%lf %lf %lf\n",Obj->matriz[0][0],Obj->matriz[1][0],Obj->matriz[2][0]);
-	fclose(arq);
 }
 
 Mat4x1 * AlocaMat4x1(){
@@ -171,7 +174,7 @@ Mat4x4 * AlocaMat4x4(){
 }
 
 void imprimeMat4x1(Mat4x1 * elemento){
-	printf("Coordenadas (x,y,z,t) : (%.2lf,%.2lf,%.2lf,%.2lf)\n",elemento->matriz[0][0],elemento->matriz[0][1],elemento->matriz[0][2], elemento->matriz[0][3]);
+	printf("Coordenadas (x,y,z,t) : (%.2lf,%.2lf,%.2lf,%.2lf)\n",elemento->matriz[0][0],elemento->matriz[1][0],elemento->matriz[2][0], elemento->matriz[3][0]);
 }
 
 void imprimeMat4x4(Mat4x4 * M){
@@ -181,5 +184,66 @@ void imprimeMat4x4(Mat4x4 * M){
 		for(j=0;j<4;j++){
 			printf((j==3) ? "%lf\n" : "%lf ", M->matriz[i][j]);
 		}
+	}
+}
+
+Mat4x1 * createNode(){
+	int i;
+	Mat4x1 * new;
+	//aloca o nó zerando seus valores
+	new = malloc(sizeof(Mat4x1));
+	if (new != NULL){
+		for (i = 0; i < 3;i++){
+			new->matriz[i][0];
+		}
+		new->matriz[3][0] = 1;
+		new->next = NULL;
+		return new;
+	}
+	printf ("Erro ao tentar criar o nó\n");
+	return NULL;
+}
+
+void addNode(Mat4x1 * head,double * valores){
+	Mat4x1 * temp, *new;
+	int i;
+	//chega ao ultimo valor da lista
+	temp = head;
+	while(temp->next != NULL){
+		temp = temp->next;
+	}
+	//atribui os valores ao nó "new"
+	new = createNode();
+	for (i = 0;i < 3;i++){
+		new->matriz[i][0] = valores[i];
+	}
+	//coloca new como ultimo elemento da lista
+	temp->next = new;	
+
+}
+
+void aplicaTrans(Mat4x1 * Objeto,Mat4x4 M){
+	Mat4x1 * temp;
+	Mat4x1 a;
+	for (temp = Objeto->next;temp != NULL;temp = temp->next){
+		a = *temp;
+		a = MatTransf(M,a);
+		alteraNode(temp,a);
+	}
+}
+
+void alteraNode(Mat4x1 * elemento,Mat4x1 a){
+	int i;
+	for(i = 0; i < 3;i++){
+		elemento->matriz[i][0] = a.matriz[i][0];
+	}
+}
+
+void imprimeObjeto(Mat4x1 * Obj){
+	int i = 1;
+	Mat4x1 * temp;
+	for (temp = Obj->next; temp != NULL; temp = temp->next){
+		printf("Coordenadas do ponto %d : (%.2lf ,%.2lf ,%.2lf)\n",i,temp->matriz[0][0],temp->matriz[1][0],temp->matriz[2][0]);
+		i++;
 	}
 }

@@ -7,6 +7,7 @@ TIPOS DE DADOS
 */
 struct mat4x1{
 	double matriz[4][1];
+	struct mat4x1 * next;
 };
 
 struct mat4x4{
@@ -35,7 +36,7 @@ Mat4x4 Escala(Mat4x4 M, double FX, double FY, double FZ);
 
 /**Preenche uma matriz 4x4 com os parˆametros de rota¸c˜ao
 */
-Mat4x4 Rot(Mat4x4 M, int eixo, double ang);
+Mat4x4 Rot(Mat4x4 M, int eixo, double angulo);
 
 /**Multiplica duas matrizes 4x4, para composiçao de transformações
 */
@@ -47,7 +48,7 @@ Mat4x1 MatTransf(Mat4x4 M, Mat4x1 P);
 
 /** Imprime as coordenadas de um objeto no arquivo de nome FName
 */
-void ImprimeNoArquivo(Mat4x1 *Obj, char* fName);
+void Imprime(Mat4x1 *Obj, char* fName);
 
 /**Aloca o espaço para a struct Mat4x1
 */
@@ -69,9 +70,24 @@ void imprimeMat4x1(Mat4x1 * elemento);
 
 void imprimeMat4x4(Mat4x4 * M);
 
-/**MULTIPLICA A MATRIZ 4X4(quatro) COM A 1x4(um) NA MATRIZ RESULT
+/**Cria um nó na lista
 */
+Mat4x1 * createNode();
 
-//mat4x4 * multiplicaMatriz(mat4x4 * result, mat4x4 * quatro, mat4x4 * um);
+/**Adiciona um nó na lista
+*/
+void addNode(Mat4x1 * head,double * valores);
+
+/**Imprime as coordenas do Objeto
+*/
+void imprimeObjeto(Mat4x1 * Obj);
+
+/**Aplica a transformação em um objeto
+*/
+void aplicaTrans(Mat4x1 * Objeto,Mat4x4 M);
+
+/**Altera o valor de um No
+*/
+void alteraNode(Mat4x1 * elemento,Mat4x1 a);
 
 #endif
