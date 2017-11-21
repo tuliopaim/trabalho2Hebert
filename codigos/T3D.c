@@ -1,6 +1,11 @@
 #include "T3D.h"
 
 //GERA A MATRIZ TRANSLAÇÃO
+/*
+=============================
+Complexidade : O(1)
+=============================
+*/
 Mat4x4 Trans(Mat4x4 M, double deltaX, double deltaY, double deltaZ){
 	int i, j;
 
@@ -19,6 +24,11 @@ Mat4x4 Trans(Mat4x4 M, double deltaX, double deltaY, double deltaZ){
 
 
 //GERA A MATRIZ ESCALA
+/*
+=============================
+Complexidade : O(1)
+=============================
+*/
 Mat4x4 Escala(Mat4x4 M, double FX, double FY, double FZ){
 	int i, j;
 	//CRIA MATRIZ ESCALA
@@ -36,6 +46,11 @@ Mat4x4 Escala(Mat4x4 M, double FX, double FY, double FZ){
 
 
 //GERA A MATRIZ DE ROTAÇÃO
+/*
+=============================
+Complexidade : O(1)
+=============================
+*/
 Mat4x4 Rot(Mat4x4 M, int eixo, double ang){
 	int i, j;
 	//TRANSFORMA O ANGULO DADO EM RADIANO
@@ -80,6 +95,11 @@ Mat4x4 Rot(Mat4x4 M, int eixo, double ang){
 }
 
 //REALIZA A MULTIPLICAÇÃO DE MATRIZES 4X4 * 4X4
+/*
+=============================
+Complexidade : O(1)
+=============================
+*/
 Mat4x4 MatComp(Mat4x4 M1, Mat4x4 M2){
 	int x, i, j;
 	Mat4x4 F; ////MATRIZ ONDE SERÁ REALIZADA A MULTIPLICAÇÃO
@@ -95,6 +115,11 @@ Mat4x4 MatComp(Mat4x4 M1, Mat4x4 M2){
 }
 
 //REALIZA A MULTIPLICAÇÃO DE MATRIZES 4X4 * 4X1
+/*
+=============================
+Complexidade : O(1)
+=============================
+*/
 Mat4x1 MatTransf(Mat4x4 M, Mat4x1 P){
 	int i, j;
 	double temp;
@@ -110,6 +135,11 @@ Mat4x1 MatTransf(Mat4x4 M, Mat4x1 P){
 }
 
 //IMPRME OS VALORES DA LISTA NO ARQUIVO DE TEXTO
+/*
+================================================================
+Complexidade : O(n), onde n é quantidade de pontos de um objeto.
+================================================================
+*/
 void Imprime(Mat4x1 *Obj, char* fName){
 	int i;
 	//ABRE O ARQUIVO
@@ -137,6 +167,11 @@ void Imprime(Mat4x1 *Obj, char* fName){
 }
 
 //LÊ LINHA POR LINHA DO ARQUIVO E ARMAZENA NA LISTA
+/*
+=================================================================
+Complexidade : O(n),onde n é a quantidade de pontos de um objeto.
+=================================================================
+*/
 void Cria(Mat4x1 *Obj, char * fName){
 	int n, i, j;
 	//ABRE O ARQUIVO
@@ -160,6 +195,11 @@ void Cria(Mat4x1 *Obj, char * fName){
 }
 
 //LE UMA LINHA DO ARQUIVO E ARMAZENA AS COORDENADAS EM UM VETOR
+/*
+=============================
+Complexidade : O(1)
+=============================
+*/
 double * ler(FILE * p, double * vetor){
 	int j=0, i;
 	double temp;
@@ -173,6 +213,11 @@ double * ler(FILE * p, double * vetor){
 }
 
 //INICIA UM NOVO NÓ PARA A LISTA
+/*
+=============================
+Complexidade : O(1)
+=============================
+*/
 Mat4x1 * lista_inicia(){
 		//ALOCA A MEMORIA NECESSARIA
     Mat4x1 * LISTA = (Mat4x1*)malloc(sizeof(Mat4x1));
@@ -187,6 +232,11 @@ Mat4x1 * lista_inicia(){
 }
 
 //RECEBE AS COORDENADAS E INSERE EM UM NÓ DA LISTA ENCADEADA
+/*
+=================================================================
+Complexidade : O(n),onde n é a quantidade de pontos de um objeto.
+=================================================================
+*/
 void lista_insere(Mat4x1 * COORD, double x, double y, double z){
   	int i;
 		Mat4x1 * percorre = COORD;
@@ -202,6 +252,11 @@ void lista_insere(Mat4x1 * COORD, double x, double y, double z){
 }
 
 //LE O ARQUIVO, GERA AS MATRIZES E ÀS MULTIPLICA
+/*
+===========================================================================================================================
+Complexidade : O(n.m),onde n é a quantidade de pontos de um objeto e m é a quantidade de transformações a serem realizadas.
+===========================================================================================================================
+*/
 Mat4x4 pegaMatrizes(char * fName){
 	//ABRE O ARQUIVO
 	FILE * in;
@@ -278,6 +333,11 @@ Mat4x4 pegaMatrizes(char * fName){
 
 //MULTIPLICA CADA COORDENADA DA LISTA PELA MATRIZ TRANSFORMAÇÃO
 //ARMAZENA AS NOVAS COORDENADAS DE VOLTA NA LISTA
+/*
+=================================================================
+Complexidade : O(n),onde n é a quantidade de pontos de um objeto.
+=================================================================
+*/
 void perMult(Mat4x1 * cord, Mat4x4 transforma){
 	Mat4x1 * percorre = cord->prox;
 	Mat4x1 temp, pontos;
@@ -291,6 +351,11 @@ void perMult(Mat4x1 * cord, Mat4x4 transforma){
 }
 
 //FUNÇÃO QUE DESALOCA A LISTA DINAMICA
+/*
+=================================================================
+Complexidade : O(n),onde n é a quantidade de pontos de um objeto.
+=================================================================
+*/
 void lista_libera(Mat4x1 * lista){
 	Mat4x1 * atual = lista;
 	Mat4x1 * prox = atual;
