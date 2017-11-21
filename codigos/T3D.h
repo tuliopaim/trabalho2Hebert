@@ -1,16 +1,33 @@
 #ifndef T3D
 #define T3D
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
 #define PI 3.14159265
+
+/*
+TIPOS DE DADOS
+*/
+struct mat4x1{
+	double matriz[4][1];
+	struct mat4x1 * prox;
+};
+
+struct mat4x4{
+	double matriz[4][4];
+};
 
 //Tipos de dados
 typedef struct mat4x1 Mat4x1;
 typedef struct mat4x4 Mat4x4;
 
-/**Função que lê todas as coordendas no arquivo de nome fNamee, e passa pra uma lista de *Obj
+/**Função que lê todas as coordendas no arquivo de nome fName, e passa pra uma lista de *Obj
 **/
 void Cria(Mat4x1 *Obj, char * fName);
 
-/*Função que inicia
+/*Função que inicia e aloca um nó da lista dinamica
 */
 
 Mat4x1 * lista_inicia();
@@ -23,7 +40,8 @@ void lista_insere(Mat4x1 * COORD, double x, double y, double z);
 */
 double * ler(FILE * p, double * vetor);
 
-/**Cria o objeto a transformar: lê o arquivo de entrada e preenche o vetor de coordenadas.
+/**Lê linha por linha do arquivo e armazena todas as coordenadas em
+uma lista dinamica
 **/
 void Cria(Mat4x1 *Obj, char* fName);
 
@@ -43,38 +61,23 @@ Mat4x4 Rot(Mat4x4 M, int eixo, double ang);
 */
 Mat4x4 MatComp(Mat4x4 M1, Mat4x4 M2);
 
-/**Multiplica uma matriz 4x4 por um vetor de coordenadas, efetuando a transformação.
+/**Multiplica uma matriz 4x4 por uma matriz 4x1
 */
 Mat4x1 MatTransf(Mat4x4 M, Mat4x1 P);
 
-/** Imprime as coordenadas de um objeto no arquivo de nome FName
+/** Imprime as coordenadas de um objeto no arquivo de nome fName
 */
-void ImprimeNoArquivo(Mat4x1 *Obj, char* fName);
+void Imprime(Mat4x1 *Obj, char* fName);
 
-/**Aloca o espaço para a struct Mat4x1
+/*Gera todas as matrizes de transformação do arquivo, as multiplica
+e retorna a matriz resultante
 */
-Mat4x1 * AlocaMat4x1();
-
-/**Aloca o espaço para a struct Mat4x1
-*/
-Mat4x4 * AlocaMat4x4();
-
-/**Imprime uma Objeto Matrix 4x1
-*/
-void imprimeMat4x1(Mat4x1 * elemento);
-
-/**Imprime uma Objeto Matrix 4x4
-*/
-void imprimeMat4x4(Mat4x4 * M);
-
-// A MAGIA ACONTECE
-//Rebe a string nome do arquivo de entrada dos dados
-void MakeItHappen(char * in, char * out);
-
-//MULTIPLICA AS MATRIZES DE TRANSFORMAÇÃO
 Mat4x4 pegaMatrizes(char * fName);
 
-//PERCORRE E MULTIPLICA
+/*percorre a lista de coordenadas e multiplica cada
+ponto pela matriz transformação, inserindo as novas
+coordenadas na mesma lista
+*/
 void perMult(Mat4x1 * cord, Mat4x4 transforma);
 
 //limpa a memoria da lista
