@@ -1,20 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
 #include "T3D.h"
-
-/*
-TIPOS DE DADOS
-*/
-struct mat4x1{
-	double matriz[4][1];
-	struct mat4x1 * prox;
-};
-
-struct mat4x4{
-	double matriz[4][4];
-};
-
 
 //GERA A MATRIZ TRANSLAÇÃO
 Mat4x4 Trans(Mat4x4 M, double deltaX, double deltaY, double deltaZ){
@@ -95,7 +79,6 @@ Mat4x4 Rot(Mat4x4 M, int eixo, double ang){
 	return M;
 }
 
-
 //REALIZA A MULTIPLICAÇÃO DE MATRIZES 4X4 * 4X4
 Mat4x4 MatComp(Mat4x4 M1, Mat4x4 M2){
 	int x, i, j;
@@ -152,26 +135,6 @@ void Imprime(Mat4x1 *Obj, char* fName){
 	}
 	fclose(out);
 }
-
-
-//IMPRIME UMA MATRIZ 4X1 PARA DEBUG
-void imprimeMat4x1(Mat4x1 * elemento){
-	int i;
-	for(i=0;i<3;i++) printf((i==2) ? "%lf\n" :" %lf ", elemento->matriz[i]);
-}
-
-
-//IMPRIME UMA MATRIZ 4X4 PARA DEBUG
-void imprimeMat4x4(Mat4x4 * M){
-	int i, j;
-	printf("\tMATRIZ\n");
-	for(i=0;i<4;i++){
-		for(j=0;j<4;j++){
-			printf((j==3) ? "%lf\n" : "%lf ", M->matriz[i][j]);
-		}
-	}
-}
-
 
 //LÊ LINHA POR LINHA DO ARQUIVO E ARMAZENA NA LISTA
 void Cria(Mat4x1 *Obj, char * fName){
@@ -234,12 +197,9 @@ void lista_insere(Mat4x1 * COORD, double x, double y, double z){
 		//CONECTA O NOVO NÓ AO FINAL DA LISTA
   	percorre->prox = novo;
 		//PASSA AS COORDENADAS PARA O NÓ
-  	novo->matriz[0][0] = x;
-  	novo->matriz[1][0] = y;
-  	novo->matriz[2][0] = z;
-  	novo->matriz[3][0] = 1;
+  	novo->matriz[0][0] = x;	novo->matriz[1][0] = y;
+  	novo->matriz[2][0] = z;	novo->matriz[3][0] = 1;
 }
-
 
 //LE O ARQUIVO, GERA AS MATRIZES E ÀS MULTIPLICA
 Mat4x4 pegaMatrizes(char * fName){
@@ -273,7 +233,6 @@ Mat4x4 pegaMatrizes(char * fName){
 					0 0 1 0
 					0 0 0 1
 	*/
-
 	char op;
 	while(!feof(in)){ //LOOP SE REPETE ATÉ O FINAL DO ARQUIVO
 		//LÊ QUAL MATRIZ SERÁ CRIADA
@@ -313,7 +272,6 @@ Mat4x4 pegaMatrizes(char * fName){
 			final = MatComp(final, escala);
 		}
 	}
-
 	//RETORNA A MATRIZ FINAL
 	return final;
 }
@@ -341,43 +299,4 @@ void lista_libera(Mat4x1 * lista){
 		free(atual);
 		atual = prox;
 	}
-
-}
-
-void MakeItHappen(char * in, char * out){
-	int i, j,n;
-
-	//LISTA DE COORDENADAS
-	//DECLARA O INICIO DE UMA LISTA DE MAT4X1
-	Mat4x1 * cord = lista_inicia();
-	//FUNÇÃO CRIA LÊ AS COORDENADAS DO ARQUIVO E CRIA UMA LISTA
-	//DINAMICA ENCADEADA
-	Cria(cord, in);
-
-	//MATRIZ TRANSFORMAÇÃO
-	//CRIA UMA STRUCT MAT4X4 PARA ARMAZENAR A MATRIZ TRANSFORMAÇÃO
-	Mat4x4 transforma;
-	//FUNÇÃO pegaMatrizes LÊ AS TRANSFORMAÇÕES NO ARQUIVO, GERA E MULTIPLICA
-	//TODAS AS MATRIZES, RETORNA A RESULTANTE
-	transforma = pegaMatrizes(in);
-
-	//PERCORRER E MULTIPLICAR
-	//PERCORRE A LISTA DE COORDENADAS E AS TRANSFORMA
-	perMult(cord, transforma);
-
-	//IMPRIME O NUMERO DE CASOS NO INICIO DO ARQUIVO
-	FILE * entrada = fopen(in, "r");
-	FILE * saida = fopen(out, "a+");
-	fscanf(entrada, "%d", &n);
-	fprintf(saida, "%d\n", n);
-	fclose(entrada);
-	fclose(saida);
-
-	//BURN
-	//IMPRIME AS COORDENADAS TRANSFORMADAS NO ARQUIVO DE SAIDA
-	Imprime(cord, out);
-
-	//Clear the mess, go home
-	//DESALOCA A LISTA CRIADA
-	lista_libera(cord);
 }
