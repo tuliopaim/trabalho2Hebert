@@ -1,28 +1,16 @@
-# TRABALHO 2
-Túlio Paim
-Matheus
-Bruno Souza
+# TRABALHO 2 - Transformações Geométricas com Tipos Abstratos de Dados
+ - **Alunos:** Túlio Paim, Matheus, Bruno Souza
 
-   O objetivo desse trabalho é rever conceitos básicos de programação bem como ex-
-plorar os conceitos de Tipos Abstratos de Dados (TADs) e análise de complexidade.
-Você deverá programar um tipo abstrato de dados T3D, que será usado para realizar
-transformações geométricas e projeções a partir de objetos tridimensionais. A base
-do TAD é a representação de conjuntos de coordenadas homogêneas, em que cada
-vértice geométrico é representado por um vetor 4x1, que contém as coordenadas x,
-y, z e t, com t = 1 para as finalidades deste trabalho. Portanto, você deverá definir
-um tipo estruturado para matriz 4x4 e outro para matriz 4x1. As transformações
-são obtidas a partir da combinação de transformações primitivas, listadas abaixo. As
-transformações primitivas são representadas por matrizes 4 x 4, e a combinação de duas
-transformações se faz por pré-multiplicação de matrizes. As transformações primitivas
-que serão implementadas no TAD são as seguintes:
+O objetivo desse trabalho é rever conceitos básicos de programação bem como explorar os conceitos de Tipos Abstratos de Dados (TADs) e análise de complexidade. Você deverá programar um tipo abstrato de dados T3D, que será usado para realizar transformações geométricas e projeções a partir de objetos tridimensionais. A base do TAD é a representação de conjuntos de coordenadas homogêneas, em que cada vértice geométrico é representado por um vetor 4x1, que contém as coordenadas x,
+y, z e t, com t = 1 para as finalidades deste trabalho. Portanto, você deverá definir um tipo estruturado para matriz 4x4 e outro para matriz 4x1. As transformações são obtidas a partir da combinação de transformações primitivas, listadas abaixo. As transformações primitivas são representadas por matrizes 4 x 4, e a combinação de duas transformações se faz por pré-multiplicação de matrizes. As transformações primitivas que serão implementadas no TAD são as seguintes: 
 
-(a) translação
+- [X] **Translação**
 
-(b) Mudança de escala
+- [X] **Mudança de escala**
 
-(c) Rotação (em torno dos eixos x, y e z, a partir da origem do sistema de coordenadas)
+- [X] **Rotação** (em torno dos eixos x, y e z, a partir da origem do sistema de coordenadas)
 
-   A composição de operações é feita por pré-multiplicação, da seguinte forma. A matriz
+A composição de operações é feita por pré-multiplicação, da seguinte forma. A matriz
 da primeira transformação a ser realizada é o ponto de partida. A matriz da segunda
 transformação deve ser multiplicada pela da primeira transformação, formando uma nova
 matriz. A matriz da terceira transformação deve ser multiplicada pela matriz resultante
@@ -35,7 +23,14 @@ de 30 graus ao redor da origem em torno do eixo z e desloca os vértices novamen
 unidades em x e y. O efeito esperado é a rotação de 30 graus em torno do eixo z ao redor
 do ponto de coordenadas (30, 30, 0).
 
-Para cada vértice de entrada P = [x P , y P , z P , 1] T , o vértice resultante é P 0 = M · P .
+Para cada vértice de entrada 
+```
+P = [x P , y P , z P , 1] T 
+```
+o vértice resultante é 
+```
+P 0 = M · P 
+```
 
 As operações que devem ser realizadas em seu TAD T3D são:
 
